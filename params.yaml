@@ -1,0 +1,21 @@
+
+stage:
+  build_features:
+    cmd: python .\src\build_features.py
+    deps: 
+    - .\data\raw\Exam_Score_Prediction.py
+    - .\src\build_features.py
+    outs:
+    - .\data\raw\
+  make_data:
+    cmd: python .\src\make_dataset.py .\data\raw\Exam_Score_Prediction_processed.csv
+    deps:
+    - .\src\make_dataset.py
+    - .\data\raw\Exam_Score_Prediction_processed.csv
+    params:
+    - make_dataset.split
+    - make_dataset.seed
+    outs:
+    - .\src\processed\
+    
+
