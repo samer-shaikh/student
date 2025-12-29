@@ -1,0 +1,37 @@
+stages:
+  build_features:
+    cmd: python .\src\data\build_features.py
+    deps: 
+    - .\data\raw\Exam_Score_Prediction.csv
+    - .\src\data\build_features.py
+    outs:
+    - .\data\raw\
+  make_data:
+    cmd: python .\src\data\make_dataset.py .\data\raw\Exam_Score_Prediction_processed.csv
+    deps:
+    - .\src\data\make_dataset.py
+    - .\data\raw\Exam_Score_Prediction_processed.csv
+    params:
+    - make_dataset.split
+    - make_dataset.seed
+    - make_dataset.target
+    outs:
+    - .\data\processed\
+  train_model:
+    cmd: python .\src\model\train_model.py .\data\processed\
+    deps:
+    - .\src\model\train_model.py
+    - .\data\processed\
+    params:
+    - train_model.kernal
+    - train_model.gamma
+    outs:
+    - .\models\
+
+  predict_model:
+    cmd: python .\src\moode\predict_model.py .\data\processed\
+    deps:
+    - .\src\moode\predict_model.py
+    - .\data\processed\
+  
+  

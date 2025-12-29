@@ -1,21 +1,8 @@
-
-stage:
-  build_features:
-    cmd: python .\src\build_features.py
-    deps: 
-    - .\data\raw\Exam_Score_Prediction.py
-    - .\src\build_features.py
-    outs:
-    - .\data\raw\
-  make_data:
-    cmd: python .\src\make_dataset.py .\data\raw\Exam_Score_Prediction_processed.csv
-    deps:
-    - .\src\make_dataset.py
-    - .\data\raw\Exam_Score_Prediction_processed.csv
-    params:
-    - make_dataset.split
-    - make_dataset.seed
-    outs:
-    - .\src\processed\
-    
+make_dataset:
+  test_split: 0.2
+  seed: 42
+  target: 'exam_score'
+train_model:
+  kernel: 'linear'
+  gamma: 'auto' 
 
