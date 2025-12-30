@@ -1,37 +1,35 @@
 stages:
   build_features:
-    cmd: python .\src\data\build_features.py
+    cmd: python .\src\features\build_features.py
     deps: 
     - .\data\raw\Exam_Score_Prediction.csv
-    - .\src\data\build_features.py
+    - .\src\features\build_features.py
     outs:
     - .\data\raw\
   make_data:
-    cmd: python .\src\data\make_dataset.py .\data\raw\Exam_Score_Prediction_processed.csv
+    cmd: python .\src\data\make_dataset.py .\data\raw\
     deps:
     - .\src\data\make_dataset.py
-    - .\data\raw\Exam_Score_Prediction_processed.csv
+    - .\data\raw\
     params:
-    - make_dataset.split
+    - make_dataset.test_split
     - make_dataset.seed
     - make_dataset.target
     outs:
     - .\data\processed\
   train_model:
-    cmd: python .\src\model\train_model.py .\data\processed\
+    cmd: python .\src\models\train_model.py .\data\processed\
     deps:
-    - .\src\model\train_model.py
+    - .\src\models\train_model.py
     - .\data\processed\
     params:
-    - train_model.kernal
+    - train_model.kernel
     - train_model.gamma
     outs:
     - .\models\
 
   predict_model:
-    cmd: python .\src\moode\predict_model.py .\data\processed\
+    cmd: python .\src\models\predict_model.py .\data\processed\
     deps:
-    - .\src\moode\predict_model.py
+    - .\src\models\predict_model.py
     - .\data\processed\
-  
-  
