@@ -49,8 +49,8 @@ stages:
       nfiles: 2
     - path: .\src\models\train_model.py
       hash: md5
-      md5: f7fb5340a2d5985e237033692cd91106
-      size: 1204
+      md5: c19d33538b68b6e7e4b8b65a1f2b1e6a
+      size: 1235
     params:
       params.yaml:
         train_model.gamma: auto
@@ -59,8 +59,8 @@ stages:
     outs:
     - path: .\models\
       hash: md5
-      md5: 4d3a7aac2970c11b2a808ee6de3ff1d7.dir
-      size: 945563
+      md5: 2b113bf3833382244bd00334d190f5ed.dir
+      size: 3111681
       nfiles: 1
   predict_model:
     cmd: python .\src\models\predict_model.py .\data\processed\
@@ -72,5 +72,8 @@ stages:
       nfiles: 2
     - path: .\src\models\predict_model.py
       hash: md5
-      md5: f627e712ac7fac143deb1c18b0c0025a
-      size: 1234
+      md5: 857e2da4dcc04343d6a5a6a52b568819
+      size: 1366
+    params:
+      params.yaml:
+        train_model.target: exam_score

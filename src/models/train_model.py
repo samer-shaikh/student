@@ -6,16 +6,17 @@ import sys
 from sklearn.svm import SVR
 import yaml
 import joblib
+import pickle
 
 
 
 def train_model(x,y,kernel,gamma):
     model = SVR(kernel=kernel,gamma=gamma)
-    model.fit(x,y)
+    model = model.fit(x,y)
     return model
 
 def save_model(model,output_path):
-    joblib.dump(model,output_path + '/model1_svr.joblib')
+    pickle.dump(model,open(output_path + '/model1_svr.sav', 'wb'))
 
 
 def main():
@@ -36,7 +37,7 @@ def main():
     X = train_features.drop(TARGET, axis=1)
     y = train_features[TARGET]
     trained_model = train_model(X,y,params['kernel'],params['gamma'])
-    save_model(train_features,output_path)
+    save_model(trained_model,output_path)
 
 if __name__ == '__main__':
     main()

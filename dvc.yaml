@@ -1,7 +1,7 @@
 stages:
   build_features:
     cmd: python .\src\features\build_features.py .\data\raw\
-    deps: 
+    deps:
     - .\data\raw\Exam_Score_Prediction.csv
     - .\src\features\build_features.py
     outs:
@@ -34,3 +34,10 @@ stages:
     deps:
     - .\src\models\predict_model.py
     - .\data\processed\
+    params:
+    - train_model.target
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
