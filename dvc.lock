@@ -1,0 +1,76 @@
+schema: '2.0'
+stages:
+  build_features:
+    cmd: python .\src\features\build_features.py .\data\raw\
+    deps:
+    - path: .\data\raw\Exam_Score_Prediction.csv
+      hash: md5
+      md5: f03beccfbc4707fdd1cfadb35973c76c
+      size: 1432918
+    - path: .\src\features\build_features.py
+      hash: md5
+      md5: dba87a42ba4d05e08018521c5089e5b4
+      size: 909
+    outs:
+    - path: .\data\raw1\
+      hash: md5
+      md5: 7a6a661d833ec0e282effd8aac55f185.dir
+      size: 2635177
+      nfiles: 1
+  make_data:
+    cmd: python .\src\data\make_dataset.py .\data\raw1\
+    deps:
+    - path: .\data\raw1\
+      hash: md5
+      md5: 7a6a661d833ec0e282effd8aac55f185.dir
+      size: 2635177
+      nfiles: 1
+    - path: .\src\data\make_dataset.py
+      hash: md5
+      md5: 229722e0abfd3607c3ed8e9b14569387
+      size: 1178
+    params:
+      params.yaml:
+        make_dataset.seed: 42
+        make_dataset.test_split: 0.2
+    outs:
+    - path: .\data\processed\
+      hash: md5
+      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
+      size: 2635574
+      nfiles: 2
+  train_model:
+    cmd: python .\src\models\train_model.py .\data\processed\
+    deps:
+    - path: .\data\processed\
+      hash: md5
+      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
+      size: 2635574
+      nfiles: 2
+    - path: .\src\models\train_model.py
+      hash: md5
+      md5: f7fb5340a2d5985e237033692cd91106
+      size: 1204
+    params:
+      params.yaml:
+        train_model.gamma: auto
+        train_model.kernel: linear
+        train_model.target: exam_score
+    outs:
+    - path: .\models\
+      hash: md5
+      md5: 4d3a7aac2970c11b2a808ee6de3ff1d7.dir
+      size: 945563
+      nfiles: 1
+  predict_model:
+    cmd: python .\src\models\predict_model.py .\data\processed\
+    deps:
+    - path: .\data\processed\
+      hash: md5
+      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
+      size: 2635574
+      nfiles: 2
+    - path: .\src\models\predict_model.py
+      hash: md5
+      md5: f627e712ac7fac143deb1c18b0c0025a
+      size: 1234

@@ -5,7 +5,7 @@ import yaml
 
 
 def read_dataset(path):
-    data = pd.read_csv(path)
+    data = pd.read_csv(path + 'Exam_Score_Prediction.csv')
     return data
 
 def save_dataset(data,save_path):
@@ -24,7 +24,7 @@ def main():
 
     input_path = sys.argv[1]
     data_path = home_dir.as_posix() + input_path
-    output_path = home_dir.as_posix() + '/data/raw'
+    output_path = home_dir.as_posix() + '/data/raw1'
 
     data = read_dataset(data_path)
     data = build_fearures(data)

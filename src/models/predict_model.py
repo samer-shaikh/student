@@ -1,5 +1,5 @@
 from sklearn.metrics import r2_score,mean_squared_error,mean_absolute_error
-from dvclive import Live # type: ignore
+from dvclive import Live
 import joblib
 import pathlib
 import pandas as pd

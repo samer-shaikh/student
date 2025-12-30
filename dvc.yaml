@@ -1,20 +1,20 @@
 stages:
   build_features:
-    cmd: python .\src\features\build_features.py
+    cmd: python .\src\features\build_features.py .\data\raw\
     deps: 
     - .\data\raw\Exam_Score_Prediction.csv
     - .\src\features\build_features.py
     outs:
-    - .\data\raw\
+    - .\data\raw1\
   make_data:
-    cmd: python .\src\data\make_dataset.py .\data\raw\
+    cmd: python .\src\data\make_dataset.py .\data\raw1\
     deps:
     - .\src\data\make_dataset.py
-    - .\data\raw\
+    - .\data\raw1\
     params:
     - make_dataset.test_split
     - make_dataset.seed
-    - make_dataset.target
+
     outs:
     - .\data\processed\
   train_model:
@@ -25,6 +25,7 @@ stages:
     params:
     - train_model.kernel
     - train_model.gamma
+    - train_model.target
     outs:
     - .\models\
 

@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 
 def read_dataset(path):
-    data = pd.read_csv(path)
+    data = pd.read_csv(path + 'Exam_Score_Prediction_processed.csv')
     return data
 
 def split_dataset(data,test_size,seed):
@@ -22,14 +22,15 @@ def main():
     corr_dir = pathlib.Path(__file__)
     home_dir = corr_dir.parent.parent.parent
     param_file = home_dir.as_posix() + '/params.yaml'
-    params = yaml.safe_load((param_file))['make_data']
+    with open(param_file, "r") as f:
+        params = yaml.safe_load(f)['make_dataset']
 
     input_path = sys.argv[1]
     data_path = home_dir.as_posix() + input_path
-    output_path = home_dir.as_posix() + '/data/processed'
+    output_path = home_dir.as_posix() + '/data/processed/'
 
     data = read_dataset(data_path)
-    train,test = split_dataset(data,params['test_size'],params['seed'])
+    train,test = split_dataset(data,params['test_split'],params['seed'])
     save_dataset(train,test,output_path)
 
 if __name__ == '__main__':
