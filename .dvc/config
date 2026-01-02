@@ -1,4 +1,6 @@
 [core]
-    remote = myremote
+    remote = origin
 ['remote "myremote"']
     url = C:\Users\admin\Desktop\student-mlops-project\student\database
+['remote "origin"']
+    url = https://dagshub.com/samershaikh1267/student.dvc
