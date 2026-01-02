@@ -2,6 +2,10 @@
 -e .
 
 # external requirements
-click
-Sphinx
+numpy
+pandas
+scikit-learn
+dvc
+dvclive
+cml
 python-dotenv>=0.5.1
