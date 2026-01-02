@@ -28,9 +28,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install "pip<24.1"
-          pip install -r requirements.txt
-          pip install cml
+          python -m pip install --upgrade "pip<24.1"
+          pip install --no-cache-dir --prefer-binary -r requirements.txt
+          pip install cml   
 
       - name: Authenticate DAGsHub
         run: |
