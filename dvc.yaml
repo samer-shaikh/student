@@ -1,41 +1,43 @@
 stages:
   build_features:
-    cmd: python .\src\features\build_features.py .\data\raw\
+    cmd: python src/features/build_features.py /data/raw/
     deps:
-    - .\data\raw\Exam_Score_Prediction.csv
-    - .\src\features\build_features.py
+    - data/raw/Exam_Score_Prediction.csv
+    - src/features/build_features.py
     outs:
-    - .\data\raw1\
+    - data/raw1
+
   make_data:
-    cmd: python .\src\data\make_dataset.py .\data\raw1\
+    cmd: python src/data/make_dataset.py /data/raw1/
     deps:
-    - .\src\data\make_dataset.py
-    - .\data\raw1\
+    - src/data/make_dataset.py
+    - data/raw1
     params:
     - make_dataset.test_split
     - make_dataset.seed
-
     outs:
-    - .\data\processed\
+    - data/processed
+
   train_model:
-    cmd: python .\src\models\train_model.py .\data\processed\
+    cmd: python src/models/train_model.py /data/processed/
     deps:
-    - .\src\models\train_model.py
-    - .\data\processed\
+    - src/models/train_model.py
+    - data/processed
     params:
     - train_model.kernel
     - train_model.gamma
     - train_model.target
     outs:
-    - .\models\
+    - models
 
   predict_model:
-    cmd: python .\src\models\predict_model.py .\data\processed\
+    cmd: python src/models/predict_model.py /data/processed/
     deps:
-    - .\src\models\predict_model.py
-    - .\data\processed\
+    - src/models/predict_model.py
+    - data/processed
     params:
     - train_model.target
+
 metrics:
 - dvclive/metrics.json
 plots:
