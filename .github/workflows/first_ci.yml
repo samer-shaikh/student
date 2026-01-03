@@ -40,7 +40,7 @@ jobs:
           dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
 
       - name: Pull data from DVC
-        run: dvc pull
+        run: dvc pull --run-cache=no
 
       - name: Run DVC pipeline
         run: dvc repro
