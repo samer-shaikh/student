@@ -1,9 +1,4 @@
 stages:
-  build_features:
-    cmd: python src/features/build_features.py /data/raw/
-    deps:
-    - data/raw/Exam_Score_Prediction.csv
-    - src/features/build_features.py
 
   make_data:
     cmd: python src/data/make_dataset.py /data/raw/
