@@ -24,7 +24,7 @@ def main():
 
     input_path = sys.argv[1]
     data_path = home_dir.as_posix() + input_path
-    output_path = home_dir.as_posix() + '/data/raw1'
+    output_path = home_dir.as_posix() + '/data/raw'
 
     data = read_dataset(data_path)
     data = build_fearures(data)

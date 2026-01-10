@@ -4,11 +4,9 @@ stages:
     deps:
     - data/raw/Exam_Score_Prediction.csv
     - src/features/build_features.py
-    outs:
-    - data/raw1
 
   make_data:
-    cmd: python src/data/make_dataset.py /data/raw1/
+    cmd: python src/data/make_dataset.py /data/raw/
     deps:
     - src/data/make_dataset.py
     - data/raw1

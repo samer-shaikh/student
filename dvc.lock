@@ -9,16 +9,10 @@ stages:
       size: 1432918
     - path: src/features/build_features.py
       hash: md5
-      md5: dba87a42ba4d05e08018521c5089e5b4
-      size: 909
-    outs:
-    - path: data/raw1
-      hash: md5
-      md5: 7a6a661d833ec0e282effd8aac55f185.dir
-      size: 2635177
-      nfiles: 1
+      md5: 1d018b4b4b4d102c49e19bab2a0829ff
+      size: 908
   make_data:
-    cmd: python src/data/make_dataset.py /data/raw1/
+    cmd: python src/data/make_dataset.py /data/raw/
     deps:
     - path: data/raw1
       hash: md5
