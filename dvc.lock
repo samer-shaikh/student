@@ -14,11 +14,11 @@ stages:
   make_data:
     cmd: python src/data/make_dataset.py /data/raw/
     deps:
-    - path: data/raw1
+    - path: data/raw
       hash: md5
-      md5: 7a6a661d833ec0e282effd8aac55f185.dir
-      size: 2635177
-      nfiles: 1
+      md5: 9f38a8ccb4fe93afbd8296d2bdcfca2f.dir
+      size: 4068095
+      nfiles: 3
     - path: src/data/make_dataset.py
       hash: md5
       md5: 229722e0abfd3607c3ed8e9b14569387

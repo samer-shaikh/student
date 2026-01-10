@@ -9,7 +9,7 @@ stages:
     cmd: python src/data/make_dataset.py /data/raw/
     deps:
     - src/data/make_dataset.py
-    - data/raw1
+    - data/raw
     params:
     - make_dataset.test_split
     - make_dataset.seed
