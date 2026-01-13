@@ -33,14 +33,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install --no-cache-dir --prefer-binary -r requirements.txt 
 
-      - name: Authenticate DAGsHub
-        run: |
-          dvc remote modify origin --local auth basic
-          dvc remote modify origin --local user ${{ secrets.DAGSHUB_USER }}
-          dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Pull data from DVC
-        run: dvc pull --no-run-cache
+      - uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./Exam_Score_Prediction.csv
+          destination: s3://students-mlops/Exam_Score_Prediction.csv
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1
 
       - name: Run DVC pipeline
         run: dvc repro
