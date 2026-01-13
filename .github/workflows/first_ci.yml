@@ -36,18 +36,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install --no-cache-dir --prefer-binary -r requirements.txt 
       
-      - name: Run DVC experiment
-        run: dvc exp run
-
-
-      - name: Create ML report
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if ls dvclive/plots/metrics/*.tsv 1> /dev/null 2>&1; then
-            echo "# 📊 Model Evaluation Report" > report.md
-            cml metrics dvclive/plots/metrics/*.tsv >> report.md
-            cml comment create report.md
-          else
-            echo "No metrics found, skipping CML report"
-          fi
+      - name: Run DVC pipeline
+        run: dvc repro
