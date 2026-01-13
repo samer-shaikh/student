@@ -38,9 +38,6 @@ jobs:
       - name: Run DVC pipeline
         run: dvc repro
 
-      - name: Push data & models
-        run: dvc push
-
       - name: Create ML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
