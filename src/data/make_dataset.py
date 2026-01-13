@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 
 
 def read_dataset(path):
-    data = pd.read_csv(path + 'Exam_Score_Prediction.csv')
+    data = pd.read_csv(path + 'Exam_Score_Prediction_processed.csv')
     return data
 
 # def save_dataset(data,save_path):

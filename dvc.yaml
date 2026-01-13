@@ -1,4 +1,8 @@
 stages:
+  build_features:
+    cmd: python src/features/build_features.py
+    deps:
+    - src/features/build_features.py
 
   make_data:
     cmd: python src/data/make_dataset.py /data/raw/
