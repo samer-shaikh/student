@@ -21,7 +21,7 @@ def split_dataset(data,test_size,seed):
 
 def build_fearures(data):
     data.dropna(inplace=True)
-    data.drop('student_id',axis=1,inplace=True)
+    data.drop(columns=['student_id'],inplace=True,errors='ignore')
     data = pd.get_dummies(data,drop_first=True)
     return data
 
