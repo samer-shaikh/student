@@ -1,17 +1,10 @@
 stages:
-  build_features:
-    cmd: python src/features/build_features.py /data/raw/
-    deps:
-    - data/raw/Exam_Score_Prediction.csv
-    - src/features/build_features.py
-    outs:
-    - data/raw1
 
   make_data:
-    cmd: python src/data/make_dataset.py /data/raw1/
+    cmd: python src/data/make_dataset.py /data/raw/
     deps:
     - src/data/make_dataset.py
-    - data/raw1
+    - data/raw
     params:
     - make_dataset.test_split
     - make_dataset.seed
