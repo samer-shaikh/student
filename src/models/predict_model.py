@@ -5,10 +5,10 @@ import pathlib
 import pandas as pd
 import sys
 import yaml
-import pickle
+
 
 def load_model(path):
-    model = pickle.load(open(path + '/model1_svr.sav', 'rb'))
+    model = joblib.load(path + '/model.joblib')
     return model
 
 def predict_model(model,data,target):

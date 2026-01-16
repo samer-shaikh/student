@@ -1,28 +1,24 @@
 schema: '2.0'
 stages:
   build_features:
-    cmd: python src/features/build_features.py /data/raw/
+    cmd: python src/features/build_features.py
     deps:
-    - path: data/raw/Exam_Score_Prediction.csv
-      hash: md5
-      md5: f03beccfbc4707fdd1cfadb35973c76c
-      size: 1432918
     - path: src/features/build_features.py
       hash: md5
-      md5: 1d018b4b4b4d102c49e19bab2a0829ff
-      size: 908
+      md5: bfb4684da81bbaacd6ab1e188985cc14
+      size: 1159
   make_data:
     cmd: python src/data/make_dataset.py /data/raw/
     deps:
     - path: data/raw
       hash: md5
-      md5: 0ec906ac48f00ab129dccf6160fae8bb.dir
-      size: 6703669
+      md5: 5d78cf6cf08d9b46e57e7e951322252b.dir
+      size: 7507873
       nfiles: 5
     - path: src/data/make_dataset.py
       hash: md5
-      md5: 3ec2b51d2250bc4e38786d121bb327d4
-      size: 1568
+      md5: 6944c3c84d063034dfc89a1a9186a361
+      size: 1597
     params:
       params.yaml:
         make_dataset.seed: 42
@@ -30,21 +26,21 @@ stages:
     outs:
     - path: data/processed
       hash: md5
-      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
-      size: 2635574
+      md5: ae02a3e82ca490e0fc924dc5b1a8e1a0.dir
+      size: 3439910
       nfiles: 2
   train_model:
     cmd: python src/models/train_model.py /data/processed/
     deps:
     - path: data/processed
       hash: md5
-      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
-      size: 2635574
+      md5: ae02a3e82ca490e0fc924dc5b1a8e1a0.dir
+      size: 3439910
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
-      md5: c19d33538b68b6e7e4b8b65a1f2b1e6a
-      size: 1235
+      md5: 157fd47db93f7f6bfad56d28ba4d883a
+      size: 1183
     params:
       params.yaml:
         train_model.gamma: auto
@@ -53,21 +49,21 @@ stages:
     outs:
     - path: models
       hash: md5
-      md5: 2b113bf3833382244bd00334d190f5ed.dir
-      size: 3111681
-      nfiles: 1
+      md5: 3bd85bf3d39a5ad1d04e3b6dce4b7ec2.dir
+      size: 4126111
+      nfiles: 2
   predict_model:
     cmd: python src/models/predict_model.py /data/processed/
     deps:
     - path: data/processed
       hash: md5
-      md5: 82774fa2070e9f257afc441fcd37dbf3.dir
-      size: 2635574
+      md5: ae02a3e82ca490e0fc924dc5b1a8e1a0.dir
+      size: 3439910
       nfiles: 2
     - path: src/models/predict_model.py
       hash: md5
-      md5: 857e2da4dcc04343d6a5a6a52b568819
-      size: 1366
+      md5: 864878dd6e8cb34ffe658749a8d84454
+      size: 1352
     params:
       params.yaml:
         train_model.target: exam_score

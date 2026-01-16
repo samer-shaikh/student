@@ -1,12 +1,9 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 import pathlib
 import sys
 from sklearn.svm import SVR
 import yaml
 import joblib
-import pickle
 
 
 
@@ -16,7 +13,7 @@ def train_model(x,y,kernel,gamma):
     return model
 
 def save_model(model,output_path):
-    pickle.dump(model,open(output_path + '/model1_svr.sav', 'wb'))
+    joblib.dump(model,output_path + "/model.joblib")  
 
 
 def main():
@@ -37,6 +34,8 @@ def main():
     X = train_features.drop(TARGET, axis=1)
     y = train_features[TARGET]
     trained_model = train_model(X,y,params['kernel'],params['gamma'])
+    joblib.dump(X.columns.tolist(),output_path + "/feature_columns.joblib")
+
     save_model(trained_model,output_path)
 
 if __name__ == '__main__':
