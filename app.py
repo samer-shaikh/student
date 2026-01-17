@@ -3,7 +3,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib 
 import pandas as pd
+import boto3
 from src.features.build_features import build_features
+import os
 
 
 class PredictionInput(BaseModel):
@@ -19,6 +21,36 @@ class PredictionInput(BaseModel):
     study_method: str
     facility_rating: str
     exam_difficulty: str
+
+BUCKET = "students-mlops"
+PREFIX = "models/creditcard/v1/"
+MODEL_DIR = "models"
+
+FILES = [
+    "model.joblib",
+    "feature_columns.joblib"
+]
+
+def load_artifact():
+    os.makedirs(MODEL_DIR, exist_ok=True)
+
+    s3 = boto3.client('s3')
+
+    for f in FILES:
+        local_path = f'{MODEL_DIR}/{f}'
+
+        if not os.path.exists(local_path):
+            s3.download_file(
+                BUCKET,
+                PREFIX + f,
+                local_path
+            )
+
+    model = joblib.load(f"{MODEL_DIR}/model.joblib")
+    feature_columns = joblib.load(f"{MODEL_DIR}/feature_columns.joblib")
+
+    return model, feature_columns
+
 
 
 app = FastAPI()
@@ -47,15 +79,12 @@ def predict(input_data: PredictionInput):
     # print(df)
     df_transformed = build_features(df)
     # print(df_transformed)
-    feature_columns = joblib.load("models/feature_columns.joblib")
+    model ,feature_columns = load_artifact()
 
     df_transformed = df_transformed.reindex(
         columns=feature_columns,
         fill_value=0
     )
-    # print(df_transformed)
-
-    model = joblib.load('models/model.joblib')
 
     prediction = model.predict(df_transformed)
 

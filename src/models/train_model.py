@@ -4,6 +4,8 @@ import sys
 from sklearn.svm import SVR
 import yaml
 import joblib
+import boto3
+import os
 
 
 
@@ -37,6 +39,25 @@ def main():
     joblib.dump(X.columns.tolist(),output_path + "/feature_columns.joblib")
 
     save_model(trained_model,output_path)
+
+    
+    MODEL_VERSION = "v1"
+    BUCKET = "students-mlops"
+    PREFIX = f"models/studnest/{MODEL_VERSION}/"
+
+    files = [
+        f"{output_path}/model.joblib",
+        f"{output_path}/feature_columns.joblib"
+    ]
+
+    s3 = boto3.client("s3")
+    for f in files:
+        assert os.path.exists(f), f"{f} not found"
+        s3.upload_file(
+            f,
+            BUCKET,
+            PREFIX + os.path.basename(f)
+        )
 
 if __name__ == '__main__':
     main()
