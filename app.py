@@ -24,7 +24,7 @@ class PredictionInput(BaseModel):
 
 BUCKET = "students-mlops"
 PREFIX = "models/studnest/v1/"
-MODEL_DIR = "models"
+MODEL_DIR = "/tmp/models"
 
 FILES = [
     "model.joblib",
