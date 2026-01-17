@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/features/build_features.py
       hash: md5
-      md5: bfb4684da81bbaacd6ab1e188985cc14
-      size: 1159
+      md5: 907791d731e562c776f4a35a4daed7c5
+      size: 1064
   make_data:
     cmd: python src/data/make_dataset.py /data/raw/
     deps:
@@ -62,8 +62,8 @@ stages:
       nfiles: 2
     - path: src/models/predict_model.py
       hash: md5
-      md5: 864878dd6e8cb34ffe658749a8d84454
-      size: 1352
+      md5: 4b89fb4ad9fc994f4f77c552cea46cc1
+      size: 1339
     params:
       params.yaml:
         train_model.target: exam_score
