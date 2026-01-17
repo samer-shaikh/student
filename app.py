@@ -51,9 +51,9 @@ def load_artifact():
 
     return model, feature_columns
 
-
-
 app = FastAPI()
+model ,feature_columns = load_artifact()
+
 
 @app.get('/')
 def home():
@@ -76,10 +76,7 @@ def predict(input_data: PredictionInput):
         input_data.exam_difficulty,
     ]
     df = pd.DataFrame([input_data.dict()])
-    # print(df)
     df_transformed = build_features(df)
-    # print(df_transformed)
-    model ,feature_columns = load_artifact()
 
     df_transformed = df_transformed.reindex(
         columns=feature_columns,
