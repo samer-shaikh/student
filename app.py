@@ -39,7 +39,7 @@ def load_artifact():
     for f in FILES:
         local_path = f'{MODEL_DIR}/{f}'
 
-        if not os.path.exists(local_path):
+        if os.path.exists(local_path):
             s3.download_file(
                 BUCKET,
                 PREFIX + f,
