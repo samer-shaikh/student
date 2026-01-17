@@ -34,20 +34,25 @@ FILES = [
 def load_artifact():
     os.makedirs(MODEL_DIR, exist_ok=True)
 
-    s3 = boto3.client('s3')
+    s3 = boto3.client("s3", region_name="us-east-1")
 
     for f in FILES:
-        local_path = f'{MODEL_DIR}/{f}'
+        local_path = os.path.join(MODEL_DIR, f)
+        s3_key = PREFIX + f
 
         if not os.path.exists(local_path):
+            print(f"⬇️ Downloading s3://{BUCKET}/{s3_key}")
             s3.download_file(
                 BUCKET,
-                PREFIX + f,
+                s3_key,
                 local_path
             )
+        else:
+            print(f"✅ Already exists: {local_path}")
 
-    model = joblib.load(f"{MODEL_DIR}/model.joblib")
-    feature_columns = joblib.load(f"{MODEL_DIR}/feature_columns.joblib")
+    print("📦 Loading model files...")
+    model = joblib.load(os.path.join(MODEL_DIR, "model.joblib"))
+    feature_columns = joblib.load(os.path.join(MODEL_DIR, "feature_columns.joblib"))
 
     return model, feature_columns
 
