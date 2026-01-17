@@ -51,6 +51,7 @@ def load_artifact():
 
     return model, feature_columns
 
+
 app = FastAPI()
 model ,feature_columns = load_artifact()
 
