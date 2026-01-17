@@ -42,20 +42,24 @@ def load_artifact():
 
         if not os.path.exists(local_path):
             print(f"⬇️ Downloading s3://{BUCKET}/{s3_key}")
-            s3.download_file(
-                BUCKET,
-                s3_key,
-                local_path
-            )
+            try:
+                s3.download_file(
+                    BUCKET,
+                    s3_key,
+                    local_path
+                )
+            except Exception as e:
+                print("⚠️ S3 download failed, using cached file if available")
+                print(f"   Reason: {e}")
         else:
             print(f"✅ Already exists: {local_path}")
 
     print("📦 Loading model files...")
+
     model = joblib.load(os.path.join(MODEL_DIR, "model.joblib"))
     feature_columns = joblib.load(os.path.join(MODEL_DIR, "feature_columns.joblib"))
 
     return model, feature_columns
-
 
 app = FastAPI()
 model ,feature_columns = load_artifact()
