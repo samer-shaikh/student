@@ -23,7 +23,7 @@ class PredictionInput(BaseModel):
     exam_difficulty: str
 
 BUCKET = "students-mlops"
-PREFIX = "models/creditcard/v1/"
+PREFIX = "models/studnest/v1/"
 MODEL_DIR = "models"
 
 FILES = [
@@ -39,7 +39,7 @@ def load_artifact():
     for f in FILES:
         local_path = f'{MODEL_DIR}/{f}'
 
-        if os.path.exists(local_path):
+        if not os.path.exists(local_path):
             s3.download_file(
                 BUCKET,
                 PREFIX + f,
