@@ -1,5 +1,6 @@
 # making the app file
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib 
 import pandas as pd
@@ -62,6 +63,13 @@ def load_artifact():
     return model, feature_columns
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 model ,feature_columns = load_artifact()
 
 
